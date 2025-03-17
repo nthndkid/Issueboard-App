@@ -19,13 +19,20 @@ const createIssue = () => {
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const priority = document.getElementById('priority').value;
+    const message = "Issue created successfully!";
+
 
     fetch("/create-issue/", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({title, description, priority})
+        body: JSON.stringify({title, description, priority, message})
     }).then(response => response.json())
-      .then(() => loadIssues());
+      .then(() => {
+        loadIssues(); 
+        showNotification(message);
+    }).catch(() => {
+        showNotification("Failed to create issue!", "is-danger");
+    });
 };
 
 const renderIssue = (issue) => {
@@ -66,8 +73,33 @@ const updateIssue = (issue_id) => {
 
 
 const deleteIssue = (issue_id) => {
+    const message = "Issue deleted successfully!";
+
     fetch(`/delete-issues/${issue_id}`,{
         method: "DELETE"
     }).then(response => response.json())
-    .then(() => loadIssues());
+    .then(() => {
+        loadIssues();
+        showNotification(message, "is-danger");
+    });
+};
+
+const showNotification = (message, type = "is-link") => {
+    const container = document.getElementById("notification-container");
+
+    
+    const notification = document.createElement("div");
+    notification.className = `notification ${type} p-4`;
+    notification.style.cssText = "margin-bottom: 10px; max-width: 300px;";
+
+
+    notification.innerHTML += message;
+
+    
+    container.appendChild(notification);
+
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 };
