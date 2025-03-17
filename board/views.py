@@ -38,7 +38,7 @@ def update_issues(request, issue_id):
         issue.save()
         return JsonResponse({"message": "Status updated", "status": issue.status})
     
-def delete_issue(request, issue_id):
+def delete_issues(request, issue_id):
     if request.method == 'DELETE':
         # model_id = arg_id
         issue = get_object_or_404(Issue, issue_id=issue_id)
