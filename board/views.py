@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from .models import Issue
 import json
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def home(request):
     return render(request, 'board/home.html')
 
+@csrf_exempt
 def create_issues(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -23,7 +24,7 @@ def read_issues(request):
     issues = list(Issue.objects.values())
     return JsonResponse({"issues": issues})
 
-
+@csrf_exempt
 def update_issues(request, issue_id):
     if request.method == "PATCH":
         issue = get_object_or_404(Issue, issue_id=issue_id)
@@ -37,7 +38,8 @@ def update_issues(request, issue_id):
 
         issue.save()
         return JsonResponse({"message": "Status updated", "status": issue.status})
-    
+
+@csrf_exempt
 def delete_issues(request, issue_id):
     if request.method == 'DELETE':
         # model_id = arg_id

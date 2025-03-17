@@ -10,7 +10,7 @@
             <div class="field px-4 py-2"> 
                 <label class="label">Title</label>
                 <div class="control">
-                  <input class="input" type="text" placeholder="Enter Issue Title">
+                  <input class="input" id="title" type="text" placeholder="Enter Issue Title">
                 </div>
               </div>
 
@@ -37,7 +37,7 @@
               
               <div class="field px-4 py-2">
                 <div class="control">
-                  <button class="button is-link is-fullwidth" onclick="addIssue()">Add Issue</button>
+                  <button class="button is-link is-fullwidth" onclick="createIssue()">Add Issue</button>
                 </div>
               </div>
         </div>
@@ -46,7 +46,8 @@
         <div class="box mx-2 my-4">
             <h2 class="title is-5 mt-4 mx-3">Issues</h2>
 
-            <div class="card" id="issue-123456">
+            <div id="issues"></div>
+            {% comment %} <div class="card" id="issue-123456">
                 <header class="card-header"  style="border-bottom: 1px solid #808080;">
                     <p class="card-header-title">
                         <span>Issue Title</span>
@@ -68,7 +69,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     </div>
